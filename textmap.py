@@ -2,17 +2,17 @@
 
 __docstring__ = """
  
- This is a data visualization aide. It takes a filename  ( 8 bit ascii only
- please), and calculates the relative frequency of each symbol, then
- graphically represents how often the symbol appears in the text, by
- placing each symbol from the text, in a circle, the distance from the
- center, being related to how frequent the symbol occurs. So if you
- have text, which consists of only the letter e (100 times) and the
- letter m (once) m will appear in the center, and e, on the edge of the
- scale. If there is a letter l, which appears 50 times, it will appear
- halfway between e and m, but displaced radially. Compare the
- differences between plaintext, random symbols, and ciphertext. Scale
- is adjusted automatically, to fit all symbols on a letter size page in
+ This is a data visualization aide. It takes a filename  (Contents 
+ of file should be 8 bit ascii only please), and calculates the relative 
+ frequency of each symbol, then graphically represents how often the 
+ symbol appears in the text, by placing each symbol from the text, in 
+ a circle, the distance from the center, being related to how frequent
+ the symbol occurs. So if you have text, which consists of only the 
+ letter e (100 times) and the letter m (once) m will appear in the center, 
+ and e, on the edge of the scale. If there is a letter l, which appears 
+ 50 times, it will appear halfway between e and m, but displaced radially. 
+ Compare the differences between plaintext, random symbols, and ciphertext. 
+ Scale is adjusted automatically, to fit all symbols on a letter size page in
  the postscript output.
 """
 
