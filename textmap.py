@@ -29,7 +29,11 @@ symbols available in good_symbols.
 
 """
 
-import os,sys,math,string
+import os
+import sys
+import math
+import string
+from operator import itemgetter
 def get_biggest(dict):
     list=[]
     for item in dict.keys():
@@ -74,6 +78,7 @@ def build_list(dataset):
     return symbol_count
 
 def build_coords(symbol_dict,char_sep):
+    sorted_list=sorted(symbol_dict.items(), key=itemgetter(0))
     angle=0
     R_coords={}
     P_coords={}
@@ -85,10 +90,10 @@ def build_coords(symbol_dict,char_sep):
         if biggest:
             scale_factor=1.0/biggest
 
-    for char in symbol_dict.keys():
-        freq_scaled=symbol_dict[char]*scale_factor
-        P_coords[char]=[angle,freq]
-        R_coords[char]=[cos_rad(angle)*freq_scaled,sin_rad(angle)*freq_scaled]
+    for char in sorted_list:
+        freq_scaled=symbol_dict[char[0]]*scale_factor
+        P_coords[char[0]]=[angle,freq]
+        R_coords[char[0]]=[cos_rad(angle)*freq_scaled,sin_rad(angle)*freq_scaled]
         angle=angle+char_sep
     return R_coords
 
