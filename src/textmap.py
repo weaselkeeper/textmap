@@ -29,7 +29,6 @@ symbols available in good_symbols.
 
 """
 
-import os
 import sys
 import math
 import string
@@ -111,7 +110,7 @@ def open_file(filename):
     data = input.read()
     data = string.strip(data)
     input.close()
-    size = len(data)
+    #size = len(data)
     return data
 
 
