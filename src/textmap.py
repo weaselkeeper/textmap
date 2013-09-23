@@ -46,6 +46,10 @@ console.setLevel(logging.WARN)
 logging.getLogger(PROJECTNAME).addHandler(console)
 log = logging.getLogger(PROJECTNAME)
 
+# Setting some constants
+good_symbols = string.digits + string.letters
+
+
 def get_biggest(dict):
     list = []
     for item in dict.keys():
@@ -77,7 +81,6 @@ def build_list(dataset):
 # which are postscript operators and must be dealt with or your output
 # will not be correct.
 
-    good_symbols = string.digits + string.letters
     symbol_count = {}
 
     for symbol in good_symbols:
