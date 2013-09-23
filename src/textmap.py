@@ -28,12 +28,23 @@ Dec 30 2005, Rev 0.04: Fix div/0 error for datasets that don't use all
 symbols available in good_symbols.
 
 """
+PROJECTNAME = 'textmap'
 
 import sys
 import math
 import string
 from operator import itemgetter
+import logging
+""" Setup logging """
+logging.basicConfig(level=logging.WARN,
+                    format='%(asctime)s %(levelname)s - %(message)s',
+                    datefmt='%y.%m.%d %H:%M:%S')
 
+# Setup logging to console.
+console = logging.StreamHandler(sys.stderr)
+console.setLevel(logging.WARN)
+logging.getLogger(PROJECTNAME).addHandler(console)
+log = logging.getLogger(PROJECTNAME)
 
 def get_biggest(dict):
     list = []
@@ -141,20 +152,22 @@ def cos_rad(deg):
     return deg_real
 
 
-def build_postscript(rect_coords):
+def build_postscript(rect_coords, output_file='output.ps'):
 # We have to take the frequency of symbol use value in symbol_dict, and
 # convert that first to a polar radius value, (using char_sep, and
 # incrementing it for the angle) then convert that polar coord pair,
 # into rect coords for postscript.
 
+    output = open(output_file,'w')
+
 #  Build the postscript file, which for now, appears on stdout.
-    print header()
-    print crosshair()
+    output.write(header())
+    output.write(crosshair())
     for symbol in rect_coords.keys():
         X, Y = rect_coords[symbol]
-        print '%3.8f cal  %3.8f cal moveto (%s) show' % (X, Y, symbol)
-    print 'showpage'
-
+        output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, symbol))
+    output.write(' showpage \r')
+    output.close()
 
 def crosshair():
     target = """
@@ -177,19 +190,18 @@ def crosshair():
 
 
 def header():
-    header = """
-    %!PS-Adobe-3.0
-    %%DocumentData: Clean7Bit
-    %%Orientation: Portrait
-    %%Pages: 1
-    %%PageOrder: Ascend
-    %%Title: PackingList
-    %%EndComments
-    /cm {25.4 mul} def
-    /cal {250 mul} def
-    /Times-Roman findfont 12 scalefont setfont
-    10 cm 15 cm translate
-    """
+    header = """%!PS-Adobe-3.0
+%%DocumentData: Clean7Bit
+%%Orientation: Portrait
+%%Pages: 1
+%%PageOrder: Ascend
+%%Title: PackingList
+%%EndComments
+/cm {25.4 mul} def
+/cal {250 mul} def
+/Times-Roman findfont 12 scalefont setfont
+10 cm 15 cm translate
+"""
     return header
 
 
