@@ -212,8 +212,7 @@ def main():
     try:
         if sys.argv[1]:
             name = sys.argv[1]
-    except:
-        IOError
+    except IOError:
         # No filename given, ask for one. Note buffer overrun
         # possibility. Also, this takes pathname as part of filename,
         # bigtime doubleplusungood   :FIXME:
