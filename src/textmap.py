@@ -208,7 +208,7 @@ def header():
     return header
 
 
-def main():
+def run():
     try:
         if sys.argv[1]:
             name = sys.argv[1]
@@ -221,4 +221,6 @@ def main():
     data = open_file(name)
     massage(data)
 
-main()
+
+if __name__ == "__main__":
+    run()
