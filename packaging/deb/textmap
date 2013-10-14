@@ -1,0 +1,23 @@
+### Commented entries have reasonable defaults.
+### Uncomment to edit them.
+# Source: <source package name; defaults to package name>
+Section: misc
+Priority: optional
+Homepage: https://github.com/weaselkeeper/textmap
+Standards-Version: 3.9.2
+
+Package: textmap
+Version: 0.1
+Maintainer: Jim Richardson <weaselkeeper@gmail.com>
+Depends: python
+Architecture: all
+Copyright: LICENSE
+# Changelog: <changelog file; defaults to a generic changelog>
+Readme: README.md
+Files: textmap.py /usr/bin
+
+Description: Simple way to visually show frequency of symbols in textfile
+ Show frequency of symbols in textfile
+ .
+ Show frequency of symbols in textfile
+
