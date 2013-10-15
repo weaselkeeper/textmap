@@ -50,16 +50,16 @@ log = logging.getLogger(PROJECTNAME)
 good_symbols = string.digits + string.letters
 
 
-def get_biggest(dict):
-    list = []
-    for item in dict.keys():
-        list.append(dict[item])
-    list.sort()
+def get_biggest(_dict):
+    _list = []
+    for item in _dict.keys():
+        _list.append(_dict[item])
+    _list.sort()
     # calculate the largest offset, and divide all offsets by one tenth
     # of it, in order to get a 0 to 10 spread so that all the files run
     # through this will be in roughly the same scale.
 
-    temp = [list.pop(0) * -1, list.pop()]
+    temp = [_list.pop(0) * -1, _list.pop()]
     temp.sort()
     return temp.pop()
 
@@ -116,14 +116,14 @@ def build_coords(symbol_dict, char_sep):
 
 
 def open_file(filename):
-    input = open(filename)
+    _input = open(filename)
 # Should really break this up, and not gulp entire file at once. But
 # for now, will leave the read() alone.
 # :FIXME: Optimization,  Security:
 
-    data = input.read()
+    data = _input.read()
     data = string.strip(data)
-    input.close()
+    _input.close()
     #size = len(data)
     return data
 
@@ -193,7 +193,7 @@ def crosshair():
 
 
 def header():
-    header = """%!PS-Adobe-3.0
+    ps_header = """%!PS-Adobe-3.0
 %%DocumentData: Clean7Bit
 %%Orientation: Portrait
 %%Pages: 1
@@ -205,7 +205,7 @@ def header():
 /Times-Roman findfont 12 scalefont setfont
 10 cm 15 cm translate
 """
-    return header
+    return ps_header
 
 
 def run():
