@@ -8,8 +8,9 @@ WORKDIR := $(shell pwd)/work
 SRCRPMDIR ?= $(shell pwd)
 SPECFILE = packaging/rpm/$(NAME).spec
 
-DEBFULLNAME=Jim Richardson
-DEBEMAIL=weaselkeeper@gmail.com
+
+DEBFULLNAME=$(shell git config --get user.name)
+DEBMAIL=$(shell git config --get user.email)
 SOURCE_URL=https://github.com/weaselkeeper/$(NAME).git
 BASEDIR := $(shell git rev-parse --show-toplevel)
 
