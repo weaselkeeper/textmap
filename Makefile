@@ -1,6 +1,6 @@
 # Makefile is a confused mess.  Needs significant cleanup
 NAME = textmap
-VERSION=0.1
+VERSION=$(shell git describe | sed -e 's/-/_/g')
 RELEASE=0
 SHELL := /bin/bash
 SPECFILE = $(firstword $(wildcard *.spec))
