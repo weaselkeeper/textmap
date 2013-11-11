@@ -1,7 +1,7 @@
 Name:           textmap
-Version:        %(git describe | sed -e 's/-/_/g')
-Release:        0
-Summary:        A few python scripts for yum repo clone/copy/assemble
+Version:        VERSION
+Release:        RELEASE
+Summary:        Graphical display of symbol frequency
 License:        GPLv2
 URL:            https://github.com/weaselkeeper/textmap
 Group:          System Environment/Base
