@@ -1,6 +1,5 @@
 #!/usr/bin/env  python
-
-__docstring__ = """
+"""
 
  This is a data visualization aide. It takes a filename  (Contents
  of file should be 8 bit ascii only please), and calculates the relative
@@ -35,7 +34,7 @@ import math
 import string
 from operator import itemgetter
 import logging
-""" Setup logging """
+# Setup logging
 logging.basicConfig(level=logging.WARN,
                     format='%(asctime)s %(levelname)s - %(message)s',
                     datefmt='%y.%m.%d %H:%M:%S')
@@ -51,13 +50,13 @@ good_symbols = string.digits + string.letters
 
 
 def get_biggest(_dict):
+    """ calculate the largest offset, and divide all offsets by one tenth
+     of it, in order to get a 0 to 10 spread so that all the files run
+     through this will be in roughly the same scale. """
     _list = []
     for item in _dict.keys():
         _list.append(_dict[item])
     _list.sort()
-    # calculate the largest offset, and divide all offsets by one tenth
-    # of it, in order to get a 0 to 10 spread so that all the files run
-    # through this will be in roughly the same scale.
 
     temp = [_list.pop(0) * -1, _list.pop()]
     temp.sort()
@@ -65,21 +64,21 @@ def get_biggest(_dict):
 
 
 def build_list(dataset):
-# Pass this a string or tuple of characters, get back a dict, of
-# char:number where number is the number of times that char occurs in
-# the dataset
+    """ Pass this a string or tuple of characters, get back a dict, of
+    char:number where number is the number of times that char occurs in
+    the dataset
 
-# We chop off cr/lf, and
-# whitespace. In fact, anything other than numerical, alphabetical are
-# pulled. All we care about are the actual symbols.  See good_symbols
-# for details on what we want to play with. Adjust accordingly.
+    We chop off cr/lf, and
+    whitespace. In fact, anything other than numerical, alphabetical are
+    pulled. All we care about are the actual symbols.  See good_symbols
+    for details on what we want to play with. Adjust accordingly.
 
-# First, we strip out bad_symbols, which are anything not in
-# good_symbols. Then we fill a dict with everything from plaintext that
-# is also present in good symbols, and set the value to 0 to start the
-# ball rolling. If you change good_symbols, be wary of stuff like \
-# which are postscript operators and must be dealt with or your output
-# will not be correct.
+    First, we strip out bad_symbols, which are anything not in
+    good_symbols. Then we fill a dict with everything from plaintext that
+    is also present in good symbols, and set the value to 0 to start the
+    ball rolling. If you change good_symbols, be wary of stuff like \
+    which are postscript operators and must be dealt with or your output
+    will not be correct."""
 
     symbol_count = {}
 
@@ -94,6 +93,7 @@ def build_list(dataset):
 
 
 def build_coords(symbol_dict, char_sep):
+    """ Create a list of the coords for the charmap"""
     sorted_list = sorted(symbol_dict.items(), key=itemgetter(0))
     angle = 0
     R_coords = {}
@@ -116,10 +116,10 @@ def build_coords(symbol_dict, char_sep):
 
 
 def open_file(filename):
+    """ Should really break this up, and not gulp entire file at once. But
+    for now, will leave the read() alone.
+    :FIXME: Optimization,  Security:""" 
     _input = open(filename)
-# Should really break this up, and not gulp entire file at once. But
-# for now, will leave the read() alone.
-# :FIXME: Optimization,  Security:
 
     data = _input.read()
     data = string.strip(data)
@@ -129,7 +129,7 @@ def open_file(filename):
 
 
 def massage(data):
-# Pass the data, one big string, to build_list, get a dict back.
+    """ Pass the data, one big string, to build_list, get a dict back.""" 
     symbols_used = build_list(data)
     size = len(symbols_used.keys())
     char_sep = 360.0 / size  # Deg seperation between symbols on chart.
@@ -144,13 +144,15 @@ def massage(data):
 
 
 def sin_rad(deg):
-    # need degrees for the postscript stuff, python mathlib deals with
-    # radians of course.
+    """ need degrees for the postscript stuff, python mathlib deals with
+    radians of course."""
     deg_real = math.sin(deg * math.pi / 180)
     return deg_real
 
 
 def cos_rad(deg):
+    """ need degrees for the postscript stuff, python mathlib deals with
+    radians of course."""
     deg_real = math.cos(deg * math.pi / 180)
     return deg_real
 
@@ -173,6 +175,7 @@ def build_postscript(rect_coords, output_file='output.ps'):
     output.close()
 
 def crosshair():
+    """ Create the crosshair reticule for the display """
     target = """
         /crosshair {
                 gsave
@@ -193,6 +196,7 @@ def crosshair():
 
 
 def header():
+    """ Build the postscript header"""
     ps_header = """%!PS-Adobe-3.0
 %%DocumentData: Clean7Bit
 %%Orientation: Portrait
@@ -209,6 +213,7 @@ def header():
 
 
 def run():
+    """ The run() function, start here"""
     try:
         if sys.argv[1]:
             name = sys.argv[1]
