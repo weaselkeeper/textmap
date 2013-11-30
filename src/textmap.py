@@ -158,10 +158,10 @@ def cos_rad(deg):
 
 
 def build_postscript(rect_coords, output_file='output.ps'):
-# We have to take the frequency of symbol use value in symbol_dict, and
-# convert that first to a polar radius value, (using char_sep, and
-# incrementing it for the angle) then convert that polar coord pair,
-# into rect coords for postscript.
+    """ We have to take the frequency of symbol use value in symbol_dict, and
+ convert that first to a polar radius value, (using char_sep, and
+ incrementing it for the angle) then convert that polar coord pair,
+ into rect coords for postscript. """
 
     output = open(output_file,'w')
 
