@@ -19,11 +19,11 @@
 
 Changelog = """
 
-Dec 1  2003, Rev 0.01: initial version.
-Dec 12 2003, Rev 0.02: Changes to catch errors in input.
-Dec 29 2005, Rev 0.03: Rewrite a lot, including the rect-polar
+Dec 1  2003, Rev 0.1: initial version.
+Dec 12 2003, Rev 0.2: Changes to catch errors in input.
+Dec 29 2005, Rev 0.3: Rewrite a lot, including the rect-polar
                        conversion
-Dec 30 2005, Rev 0.04: Fix div/0 error for datasets that don't use all
+Dec 30 2005, Rev 0.4: Fix div/0 error for datasets that don't use all
 symbols available in good_symbols.
 
 """
