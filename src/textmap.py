@@ -109,8 +109,8 @@ def build_coords(symbol_dict, char_sep):
     for char in sorted_list:
         freq_scaled = symbol_dict[char[0]] * scale_factor
         P_coords[char[0]] = [angle, freq]
-        R_coords[char[0]] = [cos_rad(angle) * freq_scaled,
-                             sin_rad(angle) * freq_scaled]
+        R_coords[char[0]] = [radme(angle, 'cos') * freq_scaled,
+                             radme(angle, 'sin') * freq_scaled]
         angle = angle + char_sep
     return R_coords
 
@@ -143,19 +143,14 @@ def massage(data):
 # Supporting functions.
 
 
-def sin_rad(deg):
-    """ need degrees for the postscript stuff, python mathlib deals with
-    radians of course."""
-    deg_real = math.sin(deg * math.pi / 180)
+def radme(deg,func):
+    """need degrees for the postscript stuff, python mathlib deals with
+    radians of course. """
+    if func == 'cos':
+        deg_real = math.cos(deg * math.pi / 180)
+    if func == 'sin':
+        deg_real = math.sin(deg * math.pi / 180)
     return deg_real
-
-
-def cos_rad(deg):
-    """ need degrees for the postscript stuff, python mathlib deals with
-    radians of course."""
-    deg_real = math.cos(deg * math.pi / 180)
-    return deg_real
-
 
 def build_postscript(rect_coords, output_file='output.ps'):
     """ We have to take the frequency of symbol use value in symbol_dict, and
