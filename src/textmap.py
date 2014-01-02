@@ -143,7 +143,7 @@ def massage(data):
 # Supporting functions.
 
 
-def radme(deg,func):
+def radme(deg, func):
     """need degrees for the postscript stuff, python mathlib deals with
     radians of course. """
     if func == 'cos':
