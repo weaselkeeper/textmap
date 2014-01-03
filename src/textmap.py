@@ -45,6 +45,20 @@ console.setLevel(logging.WARN)
 logging.getLogger(PROJECTNAME).addHandler(console)
 log = logging.getLogger(PROJECTNAME)
 
+
+def get_options():
+    """ Parse for any options """
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='This is a data visualization aide.')
+    parser.add_argument('-f', '--file', action='store', default = None,
+        help='Input file')
+
+    _args = parser.parse_args()
+    _args.usage = PROJECTNAME + ".py [options]"
+    return _args
+
+
 # Setting some constants
 good_symbols = string.digits + string.letters
 
@@ -208,7 +222,7 @@ def header():
 
 
 def run():
-    """ The run() function, start here"""
+    """ The run() function, start here, note, there are no relevant args yet"""
     try:
         if sys.argv[1]:
             name = sys.argv[1]
@@ -223,4 +237,8 @@ def run():
 
 
 if __name__ == "__main__":
+    """This is where we will begin when called from CLI. No need for argparse
+    unless being called interactively, so import it here, or at least, in
+    get_options"""
+
     run()
