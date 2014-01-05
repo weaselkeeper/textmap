@@ -53,6 +53,8 @@ def get_options():
         description='This is a data visualization aide.')
     parser.add_argument('-f', '--file', action='store', default = None,
         help='Input file', dest='inputfile')
+    parser.add_argument('-o', '--output', action='store', default = 'output.ps',
+        help = 'output file' )
 
     _args = parser.parse_args()
     _args.usage = PROJECTNAME + ".py [options]"
@@ -166,12 +168,12 @@ def radme(deg, func):
         deg_real = math.sin(deg * math.pi / 180)
     return deg_real
 
-def build_postscript(rect_coords, output_file='output.ps'):
+def build_postscript(rect_coords):
     """ We have to take the frequency of symbol use value in symbol_dict, and
  convert that first to a polar radius value, (using char_sep, and
  incrementing it for the angle) then convert that polar coord pair,
  into rect coords for postscript. """
-
+    output_file = args.output
     output = open(output_file,'w')
 
 #  Build the postscript file, which for now, appears on stdout.
