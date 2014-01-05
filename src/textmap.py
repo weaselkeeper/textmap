@@ -221,7 +221,7 @@ def header():
     return ps_header
 
 
-def run(_args):
+def run():
     """ The run() function, start here, note, there are no relevant args yet"""
     if args.inputfile:
         name = args.inputfile
@@ -240,4 +240,4 @@ if __name__ == "__main__":
     unless being called interactively, so import it here, or at least, in
     get_options"""
     args = get_options()
-    run(args)
+    run()
