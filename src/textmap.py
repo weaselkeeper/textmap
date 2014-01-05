@@ -52,7 +52,7 @@ def get_options():
     parser = argparse.ArgumentParser(
         description='This is a data visualization aide.')
     parser.add_argument('-f', '--file', action='store', default = None,
-        help='Input file')
+        help='Input file', dest='inputfile')
 
     _args = parser.parse_args()
     _args.usage = PROJECTNAME + ".py [options]"
@@ -221,12 +221,11 @@ def header():
     return ps_header
 
 
-def run():
+def run(_args):
     """ The run() function, start here, note, there are no relevant args yet"""
-    try:
-        if sys.argv[1]:
-            name = sys.argv[1]
-    except IOError:
+    if args.inputfile:
+        name = args.inputfile
+    else:
         # No filename given, ask for one. Note buffer overrun
         # possibility. Also, this takes pathname as part of filename,
         # bigtime doubleplusungood   :FIXME:
@@ -240,5 +239,5 @@ if __name__ == "__main__":
     """This is where we will begin when called from CLI. No need for argparse
     unless being called interactively, so import it here, or at least, in
     get_options"""
-
-    run()
+    args = get_options()
+    run(args)
