@@ -238,8 +238,8 @@ def run():
 
 
 if __name__ == "__main__":
-    """This is where we will begin when called from CLI. No need for argparse
-    unless being called interactively, so import it here, or at least, in
-    get_options"""
+    # This is where we will begin when called from CLI. No need for argparse
+    # unless being called interactively, so import it here, or at least, in
+    # get_options
     args = get_options()
     run()
