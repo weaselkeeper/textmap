@@ -51,10 +51,10 @@ def get_options():
     import argparse
     parser = argparse.ArgumentParser(
         description='This is a data visualization aide.')
-    parser.add_argument('-f', '--file', action='store', default = None,
+    parser.add_argument('-f', '--file', action='store', default=None,
         help='Input file', dest='inputfile')
-    parser.add_argument('-o', '--output', action='store', default = 'output.ps',
-        help = 'output file' )
+    parser.add_argument('-o', '--output', action='store', default='output.ps',
+        help='output file')
 
     _args = parser.parse_args()
     _args.usage = PROJECTNAME + ".py [options]"
@@ -134,7 +134,7 @@ def build_coords(symbol_dict, char_sep):
 def open_file(filename):
     """ Should really break this up, and not gulp entire file at once. But
     for now, will leave the read() alone.
-    :FIXME: Optimization,  Security:""" 
+    :FIXME: Optimization,  Security:"""
     _input = open(filename)
 
     data = _input.read()
@@ -145,7 +145,7 @@ def open_file(filename):
 
 
 def massage(data):
-    """ Pass the data, one big string, to build_list, get a dict back.""" 
+    """ Pass the data, one big string, to build_list, get a dict back."""
     symbols_used = build_list(data)
     size = len(symbols_used.keys())
     char_sep = 360.0 / size  # Deg seperation between symbols on chart.
@@ -174,7 +174,7 @@ def build_postscript(rect_coords):
  incrementing it for the angle) then convert that polar coord pair,
  into rect coords for postscript. """
     output_file = args.output
-    output = open(output_file,'w')
+    output = open(output_file, 'w')
 
 #  Build the postscript file, which for now, appears on stdout.
     output.write(header())
