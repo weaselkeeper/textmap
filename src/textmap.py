@@ -44,10 +44,13 @@ console = logging.StreamHandler(sys.stderr)
 console.setLevel(logging.WARN)
 logging.getLogger(PROJECTNAME).addHandler(console)
 log = logging.getLogger(PROJECTNAME)
+# Setting some constants
+good_symbols = string.digits + string.letters
 
 
 def get_options():
     """ Parse for any options """
+    log.debug('in get_options')
     import argparse
     parser = argparse.ArgumentParser(
         description='This is a data visualization aide.')
@@ -58,17 +61,15 @@ def get_options():
 
     _args = parser.parse_args()
     _args.usage = PROJECTNAME + ".py [options]"
+    log.debug('leaving get_options')
     return _args
-
-
-# Setting some constants
-good_symbols = string.digits + string.letters
 
 
 def get_biggest(_dict):
     """ calculate the largest offset, and divide all offsets by one tenth
      of it, in order to get a 0 to 10 spread so that all the files run
      through this will be in roughly the same scale. """
+     log.debug('in get_biggest')
     _list = []
     for item in _dict.keys():
         _list.append(_dict[item])
@@ -76,6 +77,7 @@ def get_biggest(_dict):
 
     temp = [_list.pop(0) * -1, _list.pop()]
     temp.sort()
+    log.debug('leaving get_biggest')
     return temp.pop()
 
 
@@ -95,7 +97,7 @@ def build_list(dataset):
     ball rolling. If you change good_symbols, be wary of stuff like \
     which are postscript operators and must be dealt with or your output
     will not be correct."""
-
+    log.debug('in build_list')
     symbol_count = {}
 
     for symbol in good_symbols:
@@ -104,12 +106,13 @@ def build_list(dataset):
     for symbol in dataset:
         if good_symbols.count(symbol):
             symbol_count[symbol] = symbol_count.get(symbol, [0]) + 1
-
+    log.debug('leaving build_list')
     return symbol_count
 
 
 def build_coords(symbol_dict, char_sep):
     """ Create a list of the coords for the charmap"""
+    log.debug('in build_coords')
     sorted_list = sorted(symbol_dict.items(), key=itemgetter(0))
     angle = 0
     R_coords = {}
@@ -128,24 +131,27 @@ def build_coords(symbol_dict, char_sep):
         R_coords[char[0]] = [radme(angle, 'cos') * freq_scaled,
                              radme(angle, 'sin') * freq_scaled]
         angle = angle + char_sep
+    log.debug('leaving build_coords')
     return R_coords
 
 
 def open_file(filename):
     """ Should really break this up, and not gulp entire file at once. But
-    for now, will leave the read() alone.
-    :FIXME: Optimization,  Security:"""
+    for now, will leave the read() alone.  """
+    log.debug('in open_file')
     _input = open(filename)
 
     data = _input.read()
     data = string.strip(data)
     _input.close()
     #size = len(data)
+    log.debug('leaving open_file')
     return data
 
 
 def massage(data):
     """ Pass the data, one big string, to build_list, get a dict back."""
+    log.debug('in massage')
     symbols_used = build_list(data)
     size = len(symbols_used.keys())
     char_sep = 360.0 / size  # Deg seperation between symbols on chart.
@@ -157,15 +163,18 @@ def massage(data):
     build_postscript(rect_coords)
 
 # Supporting functions.
+    log.debug('leaving massage')
 
 
 def radme(deg, func):
     """need degrees for the postscript stuff, python mathlib deals with
     radians of course. """
+    log.debug('in radme')
     if func == 'cos':
         deg_real = math.cos(deg * math.pi / 180)
     if func == 'sin':
         deg_real = math.sin(deg * math.pi / 180)
+    log.debug('leaving radme')
     return deg_real
 
 def build_postscript(rect_coords):
@@ -173,6 +182,7 @@ def build_postscript(rect_coords):
  convert that first to a polar radius value, (using char_sep, and
  incrementing it for the angle) then convert that polar coord pair,
  into rect coords for postscript. """
+    log.debug('in build_postscript')
     output_file = args.output
     output = open(output_file, 'w')
 
@@ -184,9 +194,11 @@ def build_postscript(rect_coords):
         output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, symbol))
     output.write(' showpage \r')
     output.close()
+    log.debug('leaving build_postscript')
 
 def crosshair():
     """ Create the crosshair reticule for the display """
+    log.debug('in crosshair')
     target = """
         /crosshair {
                 gsave
@@ -203,11 +215,13 @@ def crosshair():
                 grestore
                 } def
         crosshair """
+    log.debug('leaving crosshair')
     return target
 
 
 def header():
     """ Build the postscript header"""
+    log.debug('in header')
     ps_header = """%!PS-Adobe-3.0
 %%DocumentData: Clean7Bit
 %%Orientation: Portrait
@@ -220,11 +234,13 @@ def header():
 /Times-Roman findfont 12 scalefont setfont
 10 cm 15 cm translate
 """
+    log.debug('leaving header')
     return ps_header
 
 
 def run():
     """ The run() function, start here, note, there are no relevant args yet"""
+    log.debug('in run')
     if args.inputfile:
         name = args.inputfile
     else:
@@ -235,6 +251,7 @@ def run():
 
     data = open_file(name)
     massage(data)
+    log.debug('leaving run')
 
 
 if __name__ == "__main__":
