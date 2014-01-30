@@ -58,7 +58,8 @@ def get_options():
         help='Input file', dest='inputfile')
     parser.add_argument('-o', '--output', action='store', default='output.ps',
         help='output file')
-
+    parser.add_argument('-d', '--debug', action='store_true',
+        help='enable debugging')
     _args = parser.parse_args()
     _args.usage = PROJECTNAME + ".py [options]"
     log.debug('leaving get_options')
@@ -69,7 +70,7 @@ def get_biggest(_dict):
     """ calculate the largest offset, and divide all offsets by one tenth
      of it, in order to get a 0 to 10 spread so that all the files run
      through this will be in roughly the same scale. """
-     log.debug('in get_biggest')
+    log.debug('in get_biggest')
     _list = []
     for item in _dict.keys():
         _list.append(_dict[item])
@@ -259,4 +260,10 @@ if __name__ == "__main__":
     # unless being called interactively, so import it here, or at least, in
     # get_options
     args = get_options()
+
+    if args.debug:
+        log.setLevel(logging.DEBUG)
+    else:
+        log.setLevel(logging.WARN)
+
     run()
