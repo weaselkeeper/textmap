@@ -247,7 +247,7 @@ def run():
     else:
         # No filename given, ask for one. Note buffer overrun
         # possibility. Also, this takes pathname as part of filename,
-        # bigtime doubleplusungood   :FIXME:
+        # bigtime doubleplusungood
         name = str(raw_input(' need a filename please! : '))
 
     data = open_file(name)
