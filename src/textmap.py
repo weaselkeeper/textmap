@@ -266,4 +266,4 @@ if __name__ == "__main__":
     else:
         log.setLevel(logging.WARN)
 
-    run()
+    sys.exit(run())
