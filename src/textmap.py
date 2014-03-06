@@ -124,8 +124,9 @@ def build_coords(symbol_dict, char_sep):
         if biggest < freq:
             biggest = freq
         if biggest:
-            scale_factor = 1.0 / biggest
-
+            scale_factor = 100.0 / biggest
+    log.debug("Final scale factor is %s and biggest is %s", scale_factor,
+              biggest)
     for char in sorted_list:
         freq_scaled = symbol_dict[char[0]] * scale_factor
         P_coords[char[0]] = [angle, freq]
@@ -170,12 +171,10 @@ def massage(data):
 def radme(deg, func):
     """need degrees for the postscript stuff, python mathlib deals with
     radians of course. """
-    log.debug('in radme')
     if func == 'cos':
         deg_real = math.cos(deg * math.pi / 180)
     if func == 'sin':
         deg_real = math.sin(deg * math.pi / 180)
-    log.debug('leaving radme')
     return deg_real
 
 def build_postscript(rect_coords):
@@ -195,6 +194,8 @@ def build_postscript(rect_coords):
         log.debug("X and Y are %3.8f and %3.8f", X, Y)
         if X and Y != 0.00000000:
             output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, symbol))
+        else:
+            log.debug("zero count for symbol %s", symbol)
     output.write(' showpage \r')
     output.close()
     log.debug('leaving build_postscript')
