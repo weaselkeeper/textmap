@@ -192,7 +192,9 @@ def build_postscript(rect_coords):
     output.write(crosshair())
     for symbol in rect_coords.keys():
         X, Y = rect_coords[symbol]
-        output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, symbol))
+        log.debug("X and Y are %3.8f and %3.8f", X, Y)
+        if X and Y != 0.00000000:
+            output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, symbol))
     output.write(' showpage \r')
     output.close()
     log.debug('leaving build_postscript')
