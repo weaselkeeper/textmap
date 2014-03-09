@@ -189,13 +189,13 @@ def build_postscript(rect_coords):
 #  Build the postscript file, which for now, appears on stdout.
     output.write(header())
     output.write(crosshair())
-    for symbol in rect_coords.keys():
-        X, Y = rect_coords[symbol]
+    for sym in rect_coords.keys():
+        X, Y = rect_coords[sym]
         log.debug("X and Y are %3.8f and %3.8f", X, Y)
         if X and Y != 0.00000000:
-            output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, symbol))
+            output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, sym))
         else:
-            log.debug("zero count for symbol %s", symbol)
+            log.debug("zero count for symbol %s", sym)
     output.write(' showpage \r')
     output.close()
     log.debug('leaving build_postscript')
