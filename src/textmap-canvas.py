@@ -211,6 +211,7 @@ def radme(deg, func):
         deg_real = math.sin(deg * math.pi / 180)
     return deg_real
 
+
 def build_postscript(rect_coords):
     """ We have to take the frequency of symbol use value in symbol_dict, and
  convert that first to a polar radius value, (using char_sep, and
@@ -227,12 +228,13 @@ def build_postscript(rect_coords):
         X, Y = rect_coords[sym]
         log.debug("X and Y are %3.8f and %3.8f", X, Y)
         if X and Y != 0.00000000:
-            output.write('%3.8f cal  %3.8f cal moveto (%s) show ' % (X, Y, sym))
+            output.write('%3.8f cal  %3.8f cal moveto (%s) show' % (X, Y, sym))
         else:
             log.debug("zero count for symbol %s", sym)
     output.write(' showpage \r')
     output.close()
     log.debug('leaving build_postscript')
+
 
 def crosshair():
     """ Create the crosshair reticule for the display """
@@ -289,16 +291,17 @@ def drawCanvas():
     MAGENTA = (255, 0, 255)
     done = False
     Canvas = pygame.display.set_mode(WIDTH, HEIGHT)
-    Canvas.fill((0,0,0))
+    Canvas.fill((0, 0, 0))
     RADIUS = 100
     #Draw outline of arena
     pygame.draw.rect(Canvas, WHITE, ((0, 0), (WIDTH, HEIGHT)), 0)
     pygame.draw.rect(Canvas, CYAN, ((0, 0), (WIDTH/2, HEIGHT/2)), 0)
-    pygame.draw.rect(Canvas, MAGENTA, ((WIDTH/2,HEIGHT/2), (WIDTH/2, HEIGHT/2)), 0)
+    pygame.draw.rect(Canvas, MAGENTA, ((WIDTH/2, HEIGHT/2), (WIDTH/2, HEIGHT/2)), 0)
     pygame.draw.circle(Canvas, YELLOW, (WIDTH/2, HEIGHT/2), RADIUS, 0)
     while RADIUS >= 10:
         pygame.draw.circle(Canvas, RED, (WIDTH/2, HEIGHT/2), RADIUS, 5)
-        RADIUS = RADIUS -20
+        RADIUS = RADIUS - 20
+
 
 def run():
     """ The run() function, start here, note, there are no relevant args yet"""
