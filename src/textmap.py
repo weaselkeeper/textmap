@@ -173,8 +173,7 @@ def open_file(filename):
     log.debug('in open_file')
     _input = open(filename)
 
-    data = _input.read()
-    data = string.strip(data)
+    data = _input.read().strip()
     _input.close()
     #size = len(data)
     log.debug('leaving open_file')
