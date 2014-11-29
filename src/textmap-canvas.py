@@ -66,8 +66,6 @@ import math
 import string
 from operator import itemgetter
 import logging
-import pygame
-
 # Setup logging
 logging.basicConfig(level=logging.WARN,
                     format='%(asctime)s %(levelname)s - %(message)s',
@@ -78,6 +76,14 @@ console = logging.StreamHandler(sys.stderr)
 console.setLevel(logging.WARN)
 logging.getLogger(PROJECTNAME).addHandler(console)
 log = logging.getLogger(PROJECTNAME)
+
+try:
+    import pygame
+except ImportError as Err:
+    log.warn("failed to load pygame due to %s", Err)
+    sys.exit(1)
+
+
 # Setting some constants
 good_symbols = string.digits + string.letters
 
