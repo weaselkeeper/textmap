@@ -285,6 +285,7 @@ def header():
 
 
 def drawCanvas():
+    """ Draw the canvas, what else?"""
     FPS = 200
     LINE = 10
     WIDTH = 400
