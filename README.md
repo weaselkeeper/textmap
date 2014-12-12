@@ -16,7 +16,7 @@ optional arguments:
 
 
 e.g.
-./textmap.py <input file>
+./textmap.py  -f <input file>
 
 It's pretty crude, but kindof fun to see how patterns emerge from text, either
 raw, or encrypted.
