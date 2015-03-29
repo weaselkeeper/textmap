@@ -75,11 +75,11 @@ def get_options():
     parser = argparse.ArgumentParser(
         description='This is a data visualization aide.')
     parser.add_argument('-f', '--file', action='store', default=None,
-        help='Input file', dest='inputfile')
+                        help='Input file', dest='inputfile')
     parser.add_argument('-o', '--output', action='store', default='output.ps',
-        help='output file')
+                        help='output file')
     parser.add_argument('-d', '--debug', action='store_true',
-        help='enable debugging')
+                        help='enable debugging')
     _args = parser.parse_args()
     _args.usage = PROJECTNAME + ".py [options]"
     log.debug('leaving get_options')
